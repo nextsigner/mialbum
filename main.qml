@@ -13,17 +13,28 @@ ApplicationWindow{
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            run()
+            //unik.get
+            //run(10)
         }
     }
-    Text{
-        id: txt1
-        text: 'Prueba 3'
-        font.pixelSize: app.fs*3
-        color: 'white'
-        anchors.centerIn: parent
-    }
+    Column{
+        spacing: 30
+        //anchors.centerIn: parent
+        Text{
+            id: txt0
+            text: '0000'
+            font.pixelSize: app.fs*3
+            color: 'white'
 
+        }
+        Text{
+            id: txt1
+            text: 'Prueba 3'
+            font.pixelSize: app.fs*3
+            color: 'white'
+
+        }
+    }
     Component.onCompleted: {
         console.log(unikHere.log('Hola!'))
     }
@@ -31,7 +42,7 @@ ApplicationWindow{
     Shortcut{
         sequence: 'Enter'
         onActivated: {
-            run()
+            run(11)
         }
     }
     Timer{
@@ -45,7 +56,7 @@ ApplicationWindow{
         }
     }
     function run(v){
-        txt1.text=' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v
+        txt1.text=' Probando texto '+v+' Probando texto '+v+' Probando texto '+v
         unik.speak(txt1.text)
         txt1.text+='...'
     }
