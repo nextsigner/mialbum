@@ -1,1 +1,1 @@
-Se sube para probar unik.speak()
+Se edita main.qml 2
