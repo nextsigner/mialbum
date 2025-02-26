@@ -22,7 +22,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '0000'
+            text: '1111'
             font.pixelSize: app.fs*3
             color: 'white'
 
