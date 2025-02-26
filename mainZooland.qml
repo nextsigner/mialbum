@@ -22,7 +22,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '1111'
+            text: '222'
             font.pixelSize: app.fs*3
             color: 'white'
 
@@ -36,7 +36,7 @@ ApplicationWindow{
         }
     }
     Component.onCompleted: {
-        console.log(unikHere.log('Hola!'))
+        //console.log(unikHere.log('Hola!'))
     }
 
 
@@ -59,9 +59,8 @@ ApplicationWindow{
     Shortcut{
         sequence: 'Up'
         onActivated: {
-            let a=ttsEngines
-            txt0.text=a
-            unik.ttsCurrentEngine=a[0]
+            let url='https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download'
+            unik.downloadZipFile(url, unik.getPath(4))
         }
     }
     //engine.rootContext()->setContextProperty("ttsEngines", u.ttsEnginesList);
