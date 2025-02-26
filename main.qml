@@ -39,12 +39,7 @@ ApplicationWindow{
         console.log(unikHere.log('Hola!'))
     }
 
-    Shortcut{
-        sequence: 'Enter'
-        onActivated: {
-            run(11)
-        }
-    }
+
     Timer{
         running: true
         repeat: true
@@ -55,6 +50,23 @@ ApplicationWindow{
             v++
         }
     }
+    Shortcut{
+        sequence: 'Enter'
+        onActivated: {
+            run(11)
+        }
+    }
+    Shortcut{
+        sequence: 'Up'
+        onActivated: {
+            let a=ttsEngines
+            txt0.text=a
+        }
+    }
+    //engine.rootContext()->setContextProperty("ttsEngines", u.ttsEnginesList);
+    //engine.rootContext()->setContextProperty("ttsVoices", u.ttsVoicesList);
+    //engine.rootContext()->setContextProperty("ttsCurrentVoice", u.ttsCurrentVoice);
+    //engine.rootContext()->setContextProperty("ttsLocales", u.ttsLocales);
     function run(v){
         txt1.text=' Probando texto '+v+' Probando texto '+v+' Probando texto '+v
         unik.speak(txt1.text)
