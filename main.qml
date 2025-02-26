@@ -45,7 +45,7 @@ ApplicationWindow{
         }
     }
     function run(v){
-        txt1.text='Probando texto '+v
+        txt1.text=' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v+' Probando texto '+v
         unik.speak(txt1.text)
         txt1.text+='...'
     }
