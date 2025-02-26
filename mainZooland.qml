@@ -61,6 +61,7 @@ ApplicationWindow{
         onActivated: {
             let a=ttsEngines
             txt0.text=a
+            unik.ttsCurrentEngine=a[0]
         }
     }
     //engine.rootContext()->setContextProperty("ttsEngines", u.ttsEnginesList);
@@ -69,7 +70,7 @@ ApplicationWindow{
     //engine.rootContext()->setContextProperty("ttsLocales", u.ttsLocales);
     function run(v){
         txt1.text=' Probando texto '+v+' Probando texto '+v+' Probando texto '+v
-        unik.speak(txt1.text)
+        unik.speak(txt1.text, 'es-ES')
         txt1.text+='...'
     }
 }
