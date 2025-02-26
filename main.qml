@@ -13,8 +13,8 @@ ApplicationWindow{
 
     Text{
         id: txt1
-        text: 'Prueba'
-        font.pixelSize: app.fs
+        text: 'Prueba 2'
+        font.pixelSize: app.fs*3
         color: 'white'
         anchors.centerIn: parent
     }
@@ -27,7 +27,7 @@ ApplicationWindow{
         sequence: 'Enter'
         onActivated: {
             txt1.text='Probando texto 1'
-            unik.speak('Probando el texto a voz')
+            unik.speak('Probando el texto a voz', 0)
             txt1.text='Probando texto 2'
         }
     }
