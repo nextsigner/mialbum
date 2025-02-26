@@ -34,9 +34,19 @@ ApplicationWindow{
             run()
         }
     }
-    function run(){
-        txt1.text='Probando texto 1'
-        unik.speak('Probando el texto a voz', 0)
-        txt1.text='Probando texto 2'
+    Timer{
+        running: true
+        repeat: true
+        interval: 3000
+        property int v: 1
+        onTriggered: {
+            run(v)
+            v++
+        }
+    }
+    function run(v){
+        txt1.text='Probando texto '+v
+        unik.speak(txt1.text)
+        txt1.text+='...'
     }
 }
