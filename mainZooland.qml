@@ -22,7 +22,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '9999'
+            text: '1111'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -89,8 +89,9 @@ ApplicationWindow{
             //unik.log('Downloading zip: '+url)
             //unik.log('Downloading to zipFilePath: '+zipFilePath)
             txt0.text=url+'\n'+zipFilePath
-            curl.getFinalDownloadUrl("https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download");
             conn1.zipFilePath=zipFilePath
+            curl.getFinalDownloadUrl("https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download");
+
             //return
 
         }
