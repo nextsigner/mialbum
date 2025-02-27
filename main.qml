@@ -22,7 +22,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '222'
+            text: '3333'
             font.pixelSize: app.fs*3
             color: 'white'
 
@@ -41,7 +41,7 @@ ApplicationWindow{
 
 
     Timer{
-        running: true
+        running: false//true
         repeat: true
         interval: 3000
         property int v: 1
