@@ -22,8 +22,10 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '5555'
-            font.pixelSize: app.fs*3
+            text: '6666'
+            width: app.width-app.fs*4
+            wrapMode: Text.WrapAnywhere
+            font.pixelSize: app.fs
             color: 'white'
 
         }
@@ -32,7 +34,6 @@ ApplicationWindow{
             text: 'Prueba 3'
             font.pixelSize: app.fs*3
             color: 'white'
-
         }
     }
     Component.onCompleted: {
@@ -67,7 +68,19 @@ ApplicationWindow{
             //unik.log('Downloading zip: '+url)
             //unik.log('Downloading to zipFilePath: '+zipFilePath)
             txt0.text=url+'\n'+zipFilePath
-            unik.downloadZipFile(url, zipFilePath)
+            let downloaded=unik.downloadZipFile(url, zipFilePath)
+            if(downloaded){
+                txt0.text+='\nDescargado '+zipFilePath
+                let zipFolderDestination=unik.getPath(4)+'/fotos'
+                let unziped=unik.unzipFile(zipFilePath, zipFolderDestination)
+                if(unziped){
+                    txt0.text+='\nDescomprimido! '
+                }else{
+                    txt0.text+='\nNo Descomprimido! '
+                }
+            }else{
+                txt0.text+='\nNO Descargado! '+zipFilePath
+            }
         }
     }
     //engine.rootContext()->setContextProperty("ttsEngines", u.ttsEnginesList);
