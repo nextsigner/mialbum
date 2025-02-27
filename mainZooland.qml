@@ -22,7 +22,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '3333'
+            text: '4444'
             font.pixelSize: app.fs*3
             color: 'white'
 
@@ -59,8 +59,15 @@ ApplicationWindow{
     Shortcut{
         sequence: 'Up'
         onActivated: {
+            let d = new Date(Date.now())
+            let ms=d.getTime()
+            let zipFileName='zip_'+ms+'.zip'
+            let zipFilePath=unik.getPath(4)+'/'+zipFileName
             let url='https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download'
-            unik.downloadZipFile(url, unik.getPath(4))
+            unik.log('Downloading zip: '+url)
+            unik.log('Downloading to zipFilePath: '+zipFilePath)
+            txt0.text=url+'\n'+zipFilePath
+            unik.downloadZipFile(url, zipFilePath)
         }
     }
     //engine.rootContext()->setContextProperty("ttsEngines", u.ttsEnginesList);
