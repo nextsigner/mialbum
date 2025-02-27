@@ -10,6 +10,8 @@ ApplicationWindow{
     width: 500
     height: 500
     property int fs: Screen.width*0.02
+    property var urls: ['https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download']
+    property int cUrlIndex: 0
     MouseArea{
         anchors.fill: parent
         onClicked: {
@@ -22,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '1111'
+            text: '2222'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -36,6 +38,25 @@ ApplicationWindow{
             color: 'white'
         }
     }
+    Grid{
+        id: grid
+        Repeater{
+            id: rep
+            Rectangle{
+                width: app.fs
+                height: width
+                color: 'transparent'
+                border.width: 2
+                border.color: 'red'
+                Image{
+                    source: unik.getPath(4)+'fotos_'+app.cUrlIndex+'/'+rep.model[index]
+                    anchors.fill: parent
+
+                }
+            }
+        }
+    }
+
     Component.onCompleted: {
         //console.log(unikHere.log('Hola!'))
     }
@@ -62,16 +83,24 @@ ApplicationWindow{
         target: curl
         property string zipFilePath: ''
         onFinalDownloadUrlReady:{
-            txt0.text+='Nueva url! '+finalUrl
+            //txt0.text+='Nueva url! '+finalUrl
             let downloaded=unik.downloadZipFile(finalUrl, zipFilePath)
             if(downloaded){
-                txt0.text+='\nDescargado '+zipFilePath
-                let zipFolderDestination=unik.getPath(4)+'/fotos'
+                //txt0.text+='\nDescargado '+zipFilePath
+                let zipFolderDestination=unik.getPath(4)+'/fotos_'+app.cUrlIndex
+                unik.mkdir(zipFolderDestination)
+
+                let fileList=unik.getFileList(zipFolderDestination)
+                for(var i=0;i<fileList.length;i++){
+                    unik.deleteFile(zipFolderDestination+'/'+fileList[i])
+                }
+
                 let unziped=unik.unzipFile(zipFilePath, zipFolderDestination)
                 if(unziped){
-                    txt0.text+='\nDescomprimido! '
+                    //txt0.text+='\nDescomprimido! '
+                    rep.model=fileList=unik.getFileList(zipFolderDestination)
                 }else{
-                    txt0.text+='\nNo Descomprimido! '
+                    //txt0.text+='\nNo Descomprimido! '
                 }
             }else{
                 txt0.text+='\nNO Descargado! '+zipFilePath
@@ -81,28 +110,34 @@ ApplicationWindow{
     Shortcut{
         sequence: 'Up'
         onActivated: {
-            let d = new Date(Date.now())
-            let ms=d.getTime()
-            let zipFileName='zip_'+ms+'.zip'
-            let zipFilePath=unik.getPath(4)+'/'+zipFileName
-            let url='https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download'
-            //unik.log('Downloading zip: '+url)
-            //unik.log('Downloading to zipFilePath: '+zipFilePath)
-            txt0.text=url+'\n'+zipFilePath
-            conn1.zipFilePath=zipFilePath
-            curl.getFinalDownloadUrl("https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download");
+//            let d = new Date(Date.now())
+//            let ms=d.getTime()
+//            let zipFileName='zip_'+ms+'.zip'
+//            let zipFilePath=unik.getPath(4)+'/'+zipFileName
+//            let url='https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download'
+//            //unik.log('Downloading zip: '+url)
+//            //unik.log('Downloading to zipFilePath: '+zipFilePath)
+//            txt0.text=url+'\n'+zipFilePath
+//            conn1.zipFilePath=zipFilePath
+//            curl.getFinalDownloadUrl("https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download");
 
             //return
 
         }
     }
-    //engine.rootContext()->setContextProperty("ttsEngines", u.ttsEnginesList);
-    //engine.rootContext()->setContextProperty("ttsVoices", u.ttsVoicesList);
-    //engine.rootContext()->setContextProperty("ttsCurrentVoice", u.ttsCurrentVoice);
-    //engine.rootContext()->setContextProperty("ttsLocales", u.ttsLocales);
     function run(v){
         txt1.text=' Probando texto '+v+' Probando texto '+v+' Probando texto '+v
         unik.speak(txt1.text, 'es-ES')
         txt1.text+='...'
+    }
+    function dowloadData(){
+        let d = new Date(Date.now())
+        let ms=d.getTime()
+        let zipFileName='zip_'+ms+'.zip'
+        let zipFilePath=unik.getPath(4)+'/'+zipFileName
+        let url=app.urls[app.cUrlIndex]
+        conn1.zipFilePath=zipFilePath
+        curl.getFinalDownloadUrl("https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download");
+
     }
 }
