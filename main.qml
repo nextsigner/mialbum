@@ -22,7 +22,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '6666'
+            text: '7777'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -57,6 +57,12 @@ ApplicationWindow{
             run(11)
         }
     }
+    Connections{
+        target: curl
+        onFinalDownloadUrlReady:{
+            txt0.text+='Nueva url! '+finalUrl
+        }
+    }
     Shortcut{
         sequence: 'Up'
         onActivated: {
@@ -68,16 +74,18 @@ ApplicationWindow{
             //unik.log('Downloading zip: '+url)
             //unik.log('Downloading to zipFilePath: '+zipFilePath)
             txt0.text=url+'\n'+zipFilePath
+            curl.getFinalDownloadUrl("https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download");
+            return
             let downloaded=unik.downloadZipFile(url, zipFilePath)
             if(downloaded){
-                txt0.text+='\nDescargado '+zipFilePath
+                /*txt0.text+='\nDescargado '+zipFilePath
                 let zipFolderDestination=unik.getPath(4)+'/fotos'
                 let unziped=unik.unzipFile(zipFilePath, zipFolderDestination)
                 if(unziped){
                     txt0.text+='\nDescomprimido! '
                 }else{
                     txt0.text+='\nNo Descomprimido! '
-                }
+                }*/
             }else{
                 txt0.text+='\nNO Descargado! '+zipFilePath
             }
