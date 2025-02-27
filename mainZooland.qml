@@ -22,7 +22,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '4444'
+            text: '5555'
             font.pixelSize: app.fs*3
             color: 'white'
 
@@ -64,8 +64,8 @@ ApplicationWindow{
             let zipFileName='zip_'+ms+'.zip'
             let zipFilePath=unik.getPath(4)+'/'+zipFileName
             let url='https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download'
-            unik.log('Downloading zip: '+url)
-            unik.log('Downloading to zipFilePath: '+zipFilePath)
+            //unik.log('Downloading zip: '+url)
+            //unik.log('Downloading to zipFilePath: '+zipFilePath)
             txt0.text=url+'\n'+zipFilePath
             unik.downloadZipFile(url, zipFilePath)
         }
