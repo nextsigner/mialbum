@@ -28,52 +28,22 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '4444'
+            text: 'v5.0'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
             color: 'white'
 
         }
-        Text{
-            id: txt1
-            text: 'Cargando...'
-            font.pixelSize: app.fs
-            color: 'white'
-            anchors.centerIn: parent
-        }
-    }
 
-//    Flickable{
-//        anchors.fill: parent
-//        contentWidth: app.width
-//        contentHeight: grid.height
-//        Grid{
-//            id: grid
-//            columns: 3
-//            //anchors.centerIn: parent
-//            Repeater{
-//                id: rep
-//                Rectangle{
-//                    width: 400
-//                    height: width
-//                    color: 'transparent'
-//                    border.width: 2
-//                    border.color: 'red'
-//                    Image{
-//                        source: "file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+modelData.replace(/ /g,"\%20")+""
-//                        anchors.fill: parent
-//                        //                    Timer{
-//                        //                        running: true
-//                        //                        repeat: true
-//                        //                        interval: 2000
-//                        //                        onTriggered: console.log('image'+index+': '+parent.source)
-//                        //                    }
-//                    }
-//                }
-//            }
-//        }
-//    }
+    }
+    Text{
+        id: txt1
+        text: 'Cargando...'
+        font.pixelSize: app.fs
+        color: 'white'
+        anchors.centerIn: parent
+    }
     Image{
         id: img
         height: app.height
@@ -91,7 +61,7 @@ ApplicationWindow{
                 }else{
                     app.cFotoIndex=0
                 }
-                img.source="file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+modelData.replace(/ /g,"\%20")+""
+                img.source="file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+img.aImgs[app.cFotoIndex].replace(/ /g,"\%20")+""
             }
         }
     }
