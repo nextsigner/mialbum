@@ -24,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '4444'
+            text: '5555'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -51,13 +51,13 @@ ApplicationWindow{
                 border.color: 'red'
                 Image{
                     //source: unik.getPath(4)+'fotos_'+app.cUrlIndex+'/'+rep.model[index]
-                    source: 'file://'+unik.getPath(4)+'fotos_'+app.cUrlIndex+'/'+modelData
+                    source: 'file://'+unik.getPath(4)+'fotos_'+app.cUrlIndex+'/'+(modelData.replace(/"/g, ''))
                     anchors.fill: parent
                     Timer{
                         running: true
                         repeat: true
                         interval: 2000
-                        onTriggered: console.log('image'+index+': '+modelData)
+                        onTriggered: console.log('image'+index+': '+(modelData.replace(/"/g, '@@@@')))
                     }
 
                 }
