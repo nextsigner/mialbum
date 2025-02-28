@@ -10,7 +10,7 @@ ApplicationWindow{
     width: 500
     height: 500
     property int fs: Screen.width*0.02
-    property var urls: ['https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download']
+    property var urls: ['https://sourceforge.net/projects/zool/files/fotos_v1.2.28.1.zip/download']
     property int cUrlIndex: 0
     MouseArea{
         anchors.fill: parent
@@ -24,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '7777'
+            text: '88888'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
