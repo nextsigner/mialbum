@@ -28,17 +28,17 @@ ApplicationWindow{
         spacing: app.fs
         Text{
             id: txt0
-            text: 'v5.2'
-            width: app.width-app.fs*4
-            wrapMode: Text.WrapAnywhere
+            text: 'v5.3'
+            //width: app.width-app.fs*4
+            //wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
             color: 'white'
 
         }
         Text{
             text: 'Foto '+parseInt(app.cFotoIndex+1)+' de '+img.aImgs.length
-            width: app.width-app.fs*4
-            wrapMode: Text.WrapAnywhere
+            //width: app.width-app.fs*4
+            //wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
             color: 'white'
 
