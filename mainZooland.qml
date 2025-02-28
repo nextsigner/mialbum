@@ -24,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '111111'
+            text: '222222'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -38,9 +38,14 @@ ApplicationWindow{
             color: 'white'
         }
     }
+Flickable{
+    anchors.fill: parent
+    contentWidth: app.width
+    contentHeight: grid.height
     Grid{
         id: grid
-        anchors.centerIn: parent
+        columns: 3
+        //anchors.centerIn: parent
         Repeater{
             id: rep
             Rectangle{
@@ -50,20 +55,19 @@ ApplicationWindow{
                 border.width: 2
                 border.color: 'red'
                 Image{
-                    source: "file://"+unik.getPath(4)+"fotos_"+app.cUrlIndex+"/"+modelData.replace(/ /g,"\%20")+""
+                    source: "file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+modelData.replace(/ /g,"\%20")+""
                     anchors.fill: parent
-                    Timer{
-                        running: true
-                        repeat: true
-                        interval: 2000
-                        onTriggered: console.log('image'+index+': '+parent.source)
-                    }
-
+//                    Timer{
+//                        running: true
+//                        repeat: true
+//                        interval: 2000
+//                        onTriggered: console.log('image'+index+': '+parent.source)
+//                    }
                 }
             }
         }
     }
-
+}
     Component.onCompleted: {
         dowloadData()
         //console.log(unikHere.log('Hola!'))
