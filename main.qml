@@ -24,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '8888'
+            text: '9999'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -101,6 +101,7 @@ ApplicationWindow{
                 if(unziped){
                     //txt0.text+='\nDescomprimido! '
                     let fl=unik.getFileList(zipFolderDestination, ['*.jpg'], false)
+                    console.log('fl: '+fl)
                     rep.model=fl
                 }else{
                     //txt0.text+='\nNo Descomprimido! '
