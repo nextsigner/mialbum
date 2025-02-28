@@ -24,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '1111'
+            text: '3333'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -40,6 +40,7 @@ ApplicationWindow{
     }
     Grid{
         id: grid
+        anchors.centerIn: parent
         Repeater{
             id: rep
             Rectangle{
@@ -52,6 +53,12 @@ ApplicationWindow{
                     //source: unik.getPath(4)+'fotos_'+app.cUrlIndex+'/'+rep.model[index]
                     source: 'file://'+unik.getPath(4)+'fotos_'+app.cUrlIndex+'/'+modelData
                     anchors.fill: parent
+                    Timer{
+                        running: true
+                        repeat: true
+                        interval: 2000
+                        onTriggered: console.log('image'+index+': '+modelData)
+                    }
 
                 }
             }
