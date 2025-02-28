@@ -28,7 +28,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '3333'
+            text: '4444'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -37,9 +37,10 @@ ApplicationWindow{
         }
         Text{
             id: txt1
-            text: 'Prueba 3'
-            font.pixelSize: app.fs*3
+            text: 'Cargando...'
+            font.pixelSize: app.fs
             color: 'white'
+            anchors.centerIn: parent
         }
     }
 
@@ -146,7 +147,8 @@ ApplicationWindow{
                         a.push(fl[i])
                     }
                     console.log('a: '+a)
-                    rep.model=a
+                    img.aImgs=a
+                    //rep.model=a
                 }else{
                     //txt0.text+='\nNo Descomprimido! '
                 }
