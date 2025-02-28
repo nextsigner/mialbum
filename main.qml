@@ -24,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '4444'
+            text: '5555'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -89,12 +89,13 @@ ApplicationWindow{
             if(downloaded){
                 //txt0.text+='\nDescargado '+zipFilePath
                 let zipFolderDestination=unik.getPath(4)+'/fotos_'+app.cUrlIndex
+                unik.clearDir(zipFolderDestination)
                 unik.mkdir(zipFolderDestination)
 
-                let fileList=unik.getFileList(zipFolderDestination, ['*.jpg'], false)
+                /*let fileList=unik.getFileList(zipFolderDestination, ['*.jpg'], false)
                 for(var i=0;i<fileList.length;i++){
                     unik.deleteFile(zipFolderDestination+'/'+fileList[i], ['*.jpg'], false)
-                }
+                }*/
 
                 let unziped=unik.unzipFile(zipFilePath, zipFolderDestination)
                 if(unziped){
