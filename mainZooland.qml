@@ -13,6 +13,7 @@ ApplicationWindow{
     property var urls: ['https://sourceforge.net/projects/zool/files/fotos_p1_v1.2.28.1.zip/download']
     property int cUrlIndex: 0
 
+    property bool autoNext: true
     property int cFotoIndex: 0
     property int maxFotoIndex: 0
 
@@ -28,7 +29,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: 'v5.0'
+            text: 'v5.1'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -51,17 +52,11 @@ ApplicationWindow{
         anchors.centerIn: parent
         property var aImgs: []
         Timer{
-            running: img.aImgs.length>0
+            running: img.aImgs.length>0 && app.autoNext
             repeat: true
-            interval: 2000
+            interval: 8000
             onTriggered: {
-                //console.log('image'+index+': '+parent.source)
-                if(app.cFotoIndex<img.aImgs.length){
-                    app.cFotoIndex++
-                }else{
-                    app.cFotoIndex=0
-                }
-                img.source="file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+img.aImgs[app.cFotoIndex].replace(/ /g,"\%20")+""
+                next()
             }
         }
     }
@@ -69,24 +64,41 @@ ApplicationWindow{
 
     Component.onCompleted: {
         dowloadData()
-        //console.log(unikHere.log('Hola!'))
     }
 
 
+
+
     Timer{
-        running: false//true
-        repeat: true
-        interval: 3000
-        property int v: 1
+        running: !autoNext
+        repeat: false
+        interval: 30000
         onTriggered: {
-            run(v)
-            v++
+            autoNext=true
+        }
+    }
+    Shortcut{
+        sequence: 'Return'
+        onActivated: {
+            app.autoNext=!app.autoNext
         }
     }
     Shortcut{
         sequence: 'Enter'
         onActivated: {
-            run(11)
+            app.autoNext=!app.autoNext
+        }
+    }
+    Shortcut{
+        sequence: 'Left'
+        onActivated: {
+            prev()
+        }
+    }
+    Shortcut{
+        sequence: 'Right'
+        onActivated: {
+            next()
         }
     }
     Connections{
@@ -114,7 +126,9 @@ ApplicationWindow{
                     console.log('fl: '+fl)
                     let a=[]
                     for(var i=0;i<fl.length;i++){
-                        a.push(fl[i])
+                        if(fl[i].indexOf('.jpg')>0 || fl[i].indexOf('.png')>0 || fl[i].indexOf('.JPG')>0 || fl[i].indexOf('.jpeg')>0 || fl[i].indexOf('.JPEG')>0 || fl[i].indexOf('.BMP')>0 || fl[i].indexOf('.bmp')>0 || fl[i].indexOf('.svg')>0){
+                            a.push(fl[i])
+                        }
                     }
                     console.log('a: '+a)
                     img.aImgs=a
@@ -159,5 +173,21 @@ ApplicationWindow{
         conn1.zipFilePath=zipFilePath
         curl.getFinalDownloadUrl(app.urls[app.cUrlIndex]);
 
+    }
+    function prev(){
+        if(app.cFotoIndex>0){
+            app.cFotoIndex--
+        }else{
+            app.cFotoIndex=img.aImgs.length-1
+        }
+        img.source="file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+img.aImgs[app.cFotoIndex].replace(/ /g,"\%20")+""
+    }
+    function next(){
+        if(app.cFotoIndex<img.aImgs.length){
+            app.cFotoIndex++
+        }else{
+            app.cFotoIndex=0
+        }
+        img.source="file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+img.aImgs[app.cFotoIndex].replace(/ /g,"\%20")+""
     }
 }
