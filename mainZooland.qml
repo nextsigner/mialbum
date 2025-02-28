@@ -12,6 +12,10 @@ ApplicationWindow{
     property int fs: Screen.width*0.02
     property var urls: ['https://sourceforge.net/projects/zool/files/fotos_p1_v1.2.28.1.zip/download']
     property int cUrlIndex: 0
+
+    property int cFotoIndex: 0
+    property int maxFotoIndex: 0
+
     MouseArea{
         anchors.fill: parent
         onClicked: {
@@ -24,7 +28,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '222222'
+            text: '3333'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -38,36 +42,60 @@ ApplicationWindow{
             color: 'white'
         }
     }
-Flickable{
-    anchors.fill: parent
-    contentWidth: app.width
-    contentHeight: grid.height
-    Grid{
-        id: grid
-        columns: 3
-        //anchors.centerIn: parent
-        Repeater{
-            id: rep
-            Rectangle{
-                width: 400
-                height: width
-                color: 'transparent'
-                border.width: 2
-                border.color: 'red'
-                Image{
-                    source: "file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+modelData.replace(/ /g,"\%20")+""
-                    anchors.fill: parent
-//                    Timer{
-//                        running: true
-//                        repeat: true
-//                        interval: 2000
-//                        onTriggered: console.log('image'+index+': '+parent.source)
+
+//    Flickable{
+//        anchors.fill: parent
+//        contentWidth: app.width
+//        contentHeight: grid.height
+//        Grid{
+//            id: grid
+//            columns: 3
+//            //anchors.centerIn: parent
+//            Repeater{
+//                id: rep
+//                Rectangle{
+//                    width: 400
+//                    height: width
+//                    color: 'transparent'
+//                    border.width: 2
+//                    border.color: 'red'
+//                    Image{
+//                        source: "file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+modelData.replace(/ /g,"\%20")+""
+//                        anchors.fill: parent
+//                        //                    Timer{
+//                        //                        running: true
+//                        //                        repeat: true
+//                        //                        interval: 2000
+//                        //                        onTriggered: console.log('image'+index+': '+parent.source)
+//                        //                    }
 //                    }
+//                }
+//            }
+//        }
+//    }
+    Image{
+        id: img
+        height: app.height
+        fillMode: Image.PreserveAspectFit
+        anchors.centerIn: parent
+        property var aImgs: []
+        Timer{
+            running: img.aImgs.length>0
+            repeat: true
+            interval: 2000
+            onTriggered: {
+                //console.log('image'+index+': '+parent.source)
+                if(app.cFotoIndex<img.aImgs.length){
+                    app.cFotoIndex++
+                }else{
+                    app.cFotoIndex=0
                 }
+                img.source="file://"+unik.getPath(4)+"/fotos_"+app.cUrlIndex+"/"+modelData.replace(/ /g,"\%20")+""
             }
         }
     }
-}
+
+
     Component.onCompleted: {
         dowloadData()
         //console.log(unikHere.log('Hola!'))
@@ -130,16 +158,16 @@ Flickable{
     Shortcut{
         sequence: 'Up'
         onActivated: {
-//            let d = new Date(Date.now())
-//            let ms=d.getTime()
-//            let zipFileName='zip_'+ms+'.zip'
-//            let zipFilePath=unik.getPath(4)+'/'+zipFileName
-//            let url='https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download'
-//            //unik.log('Downloading zip: '+url)
-//            //unik.log('Downloading to zipFilePath: '+zipFilePath)
-//            txt0.text=url+'\n'+zipFilePath
-//            conn1.zipFilePath=zipFilePath
-//            curl.getFinalDownloadUrl("https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download");
+            //            let d = new Date(Date.now())
+            //            let ms=d.getTime()
+            //            let zipFileName='zip_'+ms+'.zip'
+            //            let zipFilePath=unik.getPath(4)+'/'+zipFileName
+            //            let url='https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download'
+            //            //unik.log('Downloading zip: '+url)
+            //            //unik.log('Downloading to zipFilePath: '+zipFilePath)
+            //            txt0.text=url+'\n'+zipFilePath
+            //            conn1.zipFilePath=zipFilePath
+            //            curl.getFinalDownloadUrl("https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download");
 
             //return
 
