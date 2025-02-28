@@ -24,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '3333'
+            text: '4444'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -91,9 +91,9 @@ ApplicationWindow{
                 let zipFolderDestination=unik.getPath(4)+'/fotos_'+app.cUrlIndex
                 unik.mkdir(zipFolderDestination)
 
-                let fileList=unik.getFileList(zipFolderDestination)
+                let fileList=unik.getFileList(zipFolderDestination, ['*.jpg'], false)
                 for(var i=0;i<fileList.length;i++){
-                    unik.deleteFile(zipFolderDestination+'/'+fileList[i])
+                    unik.deleteFile(zipFolderDestination+'/'+fileList[i], ['*.jpg'], false)
                 }
 
                 let unziped=unik.unzipFile(zipFilePath, zipFolderDestination)
