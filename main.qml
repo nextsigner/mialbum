@@ -24,12 +24,19 @@ ApplicationWindow{
             //run(10)
         }
     }
-    Column{
-        spacing: 30
-        //anchors.centerIn: parent
+    Row{
+        spacing: app.fs
         Text{
             id: txt0
-            text: 'v5.1'
+            text: 'v5.2'
+            width: app.width-app.fs*4
+            wrapMode: Text.WrapAnywhere
+            font.pixelSize: app.fs
+            color: 'white'
+
+        }
+        Text{
+            text: 'Foto '+parseInt(app.cFotoIndex+1)+' de '+img.aImgs.length
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -52,6 +59,7 @@ ApplicationWindow{
         anchors.centerIn: parent
         property var aImgs: []
         Timer{
+            id: tNext
             running: img.aImgs.length>0 && app.autoNext
             repeat: true
             interval: 8000
@@ -92,12 +100,14 @@ ApplicationWindow{
     Shortcut{
         sequence: 'Left'
         onActivated: {
+            tNext.restart()
             prev()
         }
     }
     Shortcut{
         sequence: 'Right'
         onActivated: {
+            tNext.restart()
             next()
         }
     }
