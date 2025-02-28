@@ -24,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '88888'
+            text: '9999'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -153,7 +153,7 @@ ApplicationWindow{
         let zipFilePath=unik.getPath(4)+'/'+zipFileName
         let url=app.urls[app.cUrlIndex]
         conn1.zipFilePath=zipFilePath
-        curl.getFinalDownloadUrl("https://sourceforge.net/projects/zool/files/fotos_v1.2.26.1.zip/download");
+        curl.getFinalDownloadUrl(app.urls[app.cUrlIndex]);
 
     }
 }
