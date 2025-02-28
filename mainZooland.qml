@@ -24,7 +24,7 @@ ApplicationWindow{
         //anchors.centerIn: parent
         Text{
             id: txt0
-            text: '9999'
+            text: '1111'
             width: app.width-app.fs*4
             wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -43,13 +43,14 @@ ApplicationWindow{
         Repeater{
             id: rep
             Rectangle{
-                width: app.fs
+                width: 400
                 height: width
                 color: 'transparent'
                 border.width: 2
                 border.color: 'red'
                 Image{
-                    source: unik.getPath(4)+'fotos_'+app.cUrlIndex+'/'+rep.model[index]
+                    //source: unik.getPath(4)+'fotos_'+app.cUrlIndex+'/'+rep.model[index]
+                    source: 'file://'+unik.getPath(4)+'fotos_'+app.cUrlIndex+'/'+modelData
                     anchors.fill: parent
 
                 }
