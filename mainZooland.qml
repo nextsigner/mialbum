@@ -10,8 +10,10 @@ ApplicationWindow{
     width: 500
     height: 500
     property int fs: Screen.width*0.02
-    property var urls: ['https://sourceforge.net/projects/zool/files/fotos_p1_v1.2.28.1.zip/download']
+    property var urls: fromCurl?['https://sourceforge.net/projects/zool/files/fotos_p1_v1.2.28.1.zip/download']:['https://liquidtelecom.dl.sourceforge.net/project/zool/fotos_p1_v1.2.28.1.zip?viasf=1']
     property int cUrlIndex: 0
+
+    property bool fromCurl: false
 
     property bool autoNext: true
     property int cFotoIndex: 0
@@ -28,7 +30,7 @@ ApplicationWindow{
         spacing: app.fs
         Text{
             id: txt0
-            text: 'v5.4'
+            text: 'v5.5'
             //width: app.width-app.fs*4
             //wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -71,7 +73,7 @@ ApplicationWindow{
 
 
     Component.onCompleted: {
-        dowloadData()
+        downloadData
     }
 
 
@@ -117,39 +119,7 @@ ApplicationWindow{
         property string zipFilePath: ''
         onFinalDownloadUrlReady:{
             //txt0.text+='Nueva url! '+finalUrl
-            console.log('finalUrl: '+finalUrl)
-            let downloaded=unik.downloadZipFile(finalUrl, zipFilePath)
-            if(downloaded){
-                //txt0.text+='\nDescargado '+zipFilePath
-                let zipFolderDestination=unik.getPath(4)+'/fotos_'+app.cUrlIndex
-                unik.clearDir(zipFolderDestination)
-                unik.mkdir(zipFolderDestination)
-
-                /*let fileList=unik.getFileList(zipFolderDestination, ['*.jpg'], false)
-                for(var i=0;i<fileList.length;i++){
-                    unik.deleteFile(zipFolderDestination+'/'+fileList[i], ['*.jpg'], false)
-                }*/
-
-                let unziped=unik.unzipFile(zipFilePath, zipFolderDestination)
-                if(unziped){
-                    //txt0.text+='\nDescomprimido! '
-                    let fl=unik.getFileList(zipFolderDestination, ['*.jpg'], false)
-                    console.log('fl: '+fl)
-                    let a=[]
-                    for(var i=0;i<fl.length;i++){
-                        if(fl[i].indexOf('.jpg')>0 || fl[i].indexOf('.png')>0 || fl[i].indexOf('.JPG')>0 || fl[i].indexOf('.jpeg')>0 || fl[i].indexOf('.JPEG')>0 || fl[i].indexOf('.BMP')>0 || fl[i].indexOf('.bmp')>0 || fl[i].indexOf('.svg')>0){
-                            a.push(fl[i])
-                        }
-                    }
-                    console.log('a: '+a)
-                    img.aImgs=a
-                    //rep.model=a
-                }else{
-                    //txt0.text+='\nNo Descomprimido! '
-                }
-            }else{
-                txt0.text+='\nNO Descargado! '+zipFilePath
-            }
+            download(finalUrl, zipFilePath)
         }
     }
     Shortcut{
@@ -175,15 +145,53 @@ ApplicationWindow{
         unik.speak(txt1.text, 'es-ES')
         txt1.text+='...'
     }
-    function dowloadData(){
+    function downloadData(){
         let d = new Date(Date.now())
         let ms=d.getTime()
         let zipFileName='zip_'+ms+'.zip'
         let zipFilePath=unik.getPath(4)+'/'+zipFileName
         let url=app.urls[app.cUrlIndex]
-        conn1.zipFilePath=zipFilePath
-        curl.getFinalDownloadUrl(app.urls[app.cUrlIndex]);
+        if(app.fromCurl){
+            conn1.zipFilePath=zipFilePath
+            curl.getFinalDownloadUrl(app.urls[app.cUrlIndex]);
+        }else{
+            download(finalUrl, zipFilePath)
+        }
+    }
+    function download(finalUrl, zipFilePath){
+        console.log('finalUrl: '+finalUrl)
+        let downloaded=unik.downloadZipFile(finalUrl, zipFilePath)
+        if(downloaded){
+            //txt0.text+='\nDescargado '+zipFilePath
+            let zipFolderDestination=unik.getPath(4)+'/fotos_'+app.cUrlIndex
+            unik.clearDir(zipFolderDestination)
+            unik.mkdir(zipFolderDestination)
 
+            /*let fileList=unik.getFileList(zipFolderDestination, ['*.jpg'], false)
+            for(var i=0;i<fileList.length;i++){
+                unik.deleteFile(zipFolderDestination+'/'+fileList[i], ['*.jpg'], false)
+            }*/
+
+            let unziped=unik.unzipFile(zipFilePath, zipFolderDestination)
+            if(unziped){
+                //txt0.text+='\nDescomprimido! '
+                let fl=unik.getFileList(zipFolderDestination, ['*.jpg'], false)
+                console.log('fl: '+fl)
+                let a=[]
+                for(var i=0;i<fl.length;i++){
+                    if(fl[i].indexOf('.jpg')>0 || fl[i].indexOf('.png')>0 || fl[i].indexOf('.JPG')>0 || fl[i].indexOf('.jpeg')>0 || fl[i].indexOf('.JPEG')>0 || fl[i].indexOf('.BMP')>0 || fl[i].indexOf('.bmp')>0 || fl[i].indexOf('.svg')>0){
+                        a.push(fl[i])
+                    }
+                }
+                console.log('a: '+a)
+                img.aImgs=a
+                //rep.model=a
+            }else{
+                //txt0.text+='\nNo Descomprimido! '
+            }
+        }else{
+            txt0.text+='\nNO Descargado! '+zipFilePath
+        }
     }
     function prev(){
         if(app.cFotoIndex>0){
