@@ -30,7 +30,7 @@ ApplicationWindow{
         spacing: app.fs
         Text{
             id: txt0
-            text: 'v5.6'
+            text: 'v5.7'
             //width: app.width-app.fs*4
             //wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -155,7 +155,7 @@ ApplicationWindow{
             conn1.zipFilePath=zipFilePath
             curl.getFinalDownloadUrl(app.urls[app.cUrlIndex]);
         }else{
-            download(finalUrl, zipFilePath)
+            download(url, zipFilePath)
         }
     }
     function download(finalUrl, zipFilePath){
