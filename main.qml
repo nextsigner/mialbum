@@ -30,7 +30,7 @@ ApplicationWindow{
         spacing: app.fs
         Text{
             id: txt0
-            text: 'v5.5'
+            text: 'v5.6'
             //width: app.width-app.fs*4
             //wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -73,7 +73,7 @@ ApplicationWindow{
 
 
     Component.onCompleted: {
-        downloadData
+        downloadData()
     }
 
 
