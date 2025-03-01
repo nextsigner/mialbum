@@ -28,7 +28,7 @@ ApplicationWindow{
         spacing: app.fs
         Text{
             id: txt0
-            text: 'v5.3'
+            text: 'v5.4'
             //width: app.width-app.fs*4
             //wrapMode: Text.WrapAnywhere
             font.pixelSize: app.fs
@@ -117,6 +117,7 @@ ApplicationWindow{
         property string zipFilePath: ''
         onFinalDownloadUrlReady:{
             //txt0.text+='Nueva url! '+finalUrl
+            console.log('finalUrl: '+finalUrl)
             let downloaded=unik.downloadZipFile(finalUrl, zipFilePath)
             if(downloaded){
                 //txt0.text+='\nDescargado '+zipFilePath
